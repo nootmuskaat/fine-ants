@@ -133,3 +133,6 @@ dmypy.json
 
 # macOS hidden files
 **/.DS_Store
+
+# front-end
+frontend/node_modules

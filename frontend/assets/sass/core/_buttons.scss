@@ -1,0 +1,73 @@
+// ==========================================================================
+// Helpers
+// ==========================================================================
+
+// Rem mixin
+@mixin button(
+    $btn-color: null,
+    $color: null,
+    $type: null,
+    $size: null,
+    $raised: false
+) {
+
+    // SET DEFAULTS
+    @if ($btn-color == null) {
+        $btn-color: $blue;
+    }
+    @if ($color == null) {
+        $color: $white;
+    }
+    @if ($type == null) {
+        $type: "contained";
+    }
+    @if ($size == null) {
+        $size: $font-size;
+    }
+
+    @if ($type == "outlined") {
+        background-color: unset;
+        border: 2px solid $btn-color;
+    } @else if ($type == "text") {
+        background-color: unset;
+        border: none;
+    } @else {
+        background-color: $btn-color;
+        border: none;
+    }
+
+    // use this site to generate new box shadow if needed
+    // https://www.cssmatic.com/box-shadow
+    @if ($raised == true) {
+        box-shadow: 0 10px 32px 0 rgba(0,0,0,0.25);
+    }
+
+    color: $color;
+    font-size: $size;
+    font-weight: $font-weight-semi-bold;
+    padding: .5em 2em;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        background-color: darken($btn-color, 10%);
+        text-decoration: none;
+        color: $color;
+        @if ($type == "outlined") {
+            border: 2px solid darken($btn-color, 10%);
+        }
+    }
+
+    &:active {
+        background-color: darken($btn-color, 20%);
+        text-decoration: none;
+        color: $color;
+        @if ($type == "outlined") {
+            border: 2px solid darken($btn-color, 20%);
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
