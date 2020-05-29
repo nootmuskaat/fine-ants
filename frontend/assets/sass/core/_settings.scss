@@ -1,0 +1,145 @@
+
+// ==========================================================================
+// Breakpoints
+// ==========================================================================
+
+    $x-small                                 : 360px;
+    $small                                   : 576px;
+    $medium                                  : 768px;
+    $large                                   : 992px;
+    $x-large                                 : 1200px;
+
+    // Project Specific
+    // These should also be added to $mq-breakpoints map.
+
+// ==========================================================================
+// Media Queries
+// ==========================================================================
+
+    // Sass-mq Configuration
+    //
+    // Reference: https://github.com/sass-mq/sass-mq#adding-custom-breakpoints
+    //
+    // Name your breakpoints in a way that creates a ubiquitous language
+    // across team members. It will improve communication between
+    // stakeholders, designers, developers, and testers.
+    $mq-breakpoints: (
+        x-small                              : $x-small,
+        small                                : $small,
+        medium                               : $medium,
+        large                                : $large,
+        x-large                              : $x-large,
+
+        // Project Specific
+    );
+
+    // Define the breakpoint from the $mq-breakpoints list that should
+    // be used as the target width when outputting a static stylesheet
+    // (i.e. when $mq-responsive is set to 'false').
+    $mq-static-breakpoint: medium;
+
+    // Customize the media type (e.g. `@media screen` or `@media print`)
+    // By default sass-mq uses an "all" media type (`@media all and …`)
+    $mq-media-type: screen;
+
+// ==========================================================================
+// Colors
+// ==========================================================================
+
+    // Color Names: http://chir.ag/projects/name-that-color/
+
+    // Project Specific
+    // ----------------------------------------------------------------------
+
+
+    // Global
+    // ----------------------------------------------------------------------
+
+    $white                                   : #FFFFFF;
+    $off-white                               : #F7F7F7;
+    $light-gray                              : #EAEAEA;
+    $gray                                    : #DCDCDC;
+    $off-black                               : #232323;
+    $black                                   : #000000;
+
+    $ada-blue                                : #3344dd;
+    $ada-red                                 : #B50010;
+    $ada-purple                              : #804180;
+
+
+    // Social Networks
+    // ----------------------------------------------------------------------
+
+    $dribbble                                : #EA4C89;
+    $facebook                                : #3B5998;
+    $linkedin                                : #007FB1;
+    $rss                                     : #FF6600;
+    $email                                   : #FFDD68;
+    $instagram                               : #3F729B;
+    $youtube                                 : #CD332D;
+    $vimeo                                   : #44BBFF;
+    $tumblr                                  : #2C4762;
+    $pinterest                               : #E41F11;
+    $googleplus                              : #D14836;
+    $flickr                                  : #0063DB;
+    $twitter                                 : #39A9E0;
+
+    // Alerts
+    // ----------------------------------------------------------------------
+
+    $success                                 : #659F13;
+    $success-light                           : #F2FAE3;
+    $error                                   : #D85030;
+    $error-light                             : #FFF1F0;
+    $warning                                 : #E28327;
+    $warning-light                           : #FFFCEB;
+
+// ==========================================================================
+// Typography
+// ==========================================================================
+
+    $font-family                             : "Lato", sans-serif;
+    $font-family-secondary                   : "Lato", serif;
+    $font-size                               : 18px;
+    $font-color                              : $black;
+    $link-color                              : $ada-blue;
+    $link-color-hover                        : darken($link-color, 25%);
+    $link-color-visited                      : $ada-blue;
+    $font-weight-light                       : 300;
+    $font-weight-regular                     : 400;
+    $font-weight-semi-bold                   : 600;
+    $font-weight-black                       : 900;
+
+    $selection-highlight-background          : $ada-blue;
+    $selection-highlight-color               : $white;
+
+// ==========================================================================
+// Header
+// ==========================================================================
+
+    // hamburger menu
+    $bar-width                               : 38px;
+    $bar-height                              : 6px;
+    $bar-spacing                             : 12px;
+
+    $mobile-header-height                    : 62px;
+    $desktop-header-height                   : 63px;
+    $mobile-wpadmin-header-height            : 46px;
+    $desktop-wpadmin-header-height           : 32px;
+
+// ==========================================================================
+// Page Styles
+// ==========================================================================
+
+    $page-padding                            : 80px;
+    $section-padding                         : 80px;
+    $news-padding                            : 46px;
+    $hero-padding                            : 100px;
+    $team-padding                            : 128px;
+    $banner-padding                          : 200px;
+
+// ==========================================================================
+// Animation Speed
+// ==========================================================================
+
+    $animation-speed                         : 1s;
