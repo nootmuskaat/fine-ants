@@ -1,0 +1,71 @@
+// ==========================================================================
+// Content
+// ==========================================================================
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-content {
+    padding-top: $page-padding;
+    padding-bottom: $page-padding;
+}
+
+main {
+    margin-top: $mobile-header-height;
+    @include mq(large) {
+        margin-top: $desktop-header-height;
+    }
+}
+
+// account for wp admin bar
+body.admin-bar {
+    #wpadminbar {
+        //keep wp admin bar fixed at mobile as well as desktop
+        position: fixed !important;
+    }
+    & #site-header {
+        margin-top: $mobile-wpadmin-header-height;
+        @include mq(783px) {
+            margin-top: $desktop-wpadmin-header-height;
+        }
+    }
+}
+
+.wp-caption-text {
+    margin: .75rem 0 0;
+    color: $gray;
+    font-size: .75rem;
+    text-align: center;
+}
+
+.social-icons {
+    &__link {
+        display: inline-block;
+
+        &:not(:last-of-type) {
+            margin-right: 8px;
+            @include mq($from: large, $until: x-large) {
+                margin-right: 6px;
+            }
+        }
+    }
+}
+
+.entry-content {
+    h1, h2, h3, h4, h5, h6 {
+        &:first-child {
+            margin-top: 0;
+            line-height: 1;
+        }
+    }
+}
+
+video {
+    max-width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+}

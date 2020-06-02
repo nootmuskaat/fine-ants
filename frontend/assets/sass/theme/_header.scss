@@ -1,0 +1,469 @@
+// ==========================================================================
+// Header
+// ==========================================================================
+.site-header {
+    background-color: $white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    &__row {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        align-items: center;
+        @include mq(large) {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &__row-front-page {
+        height: 100%;
+        align-items: center;
+    }
+
+    &__main-nav-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        @include mq($until: large) {
+            display: none;
+        }
+    }
+
+    &__social-container {
+        margin-right: 16px;
+    }
+
+    &__mobile-nav {
+        display: flex;
+        position: relative;
+        @include mq(large) {
+            display: none;
+        }
+    }
+
+    &__logo-container {
+        display: flex;
+        align-items: center;
+    }
+
+    &__logo-link {
+        display: block;
+    }
+
+    &__logo {
+        max-width: 180px;
+        @include mq(medium) {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    &__logo-front-page {
+        max-width: 300px;
+    }
+
+    &__phone-wrapper {
+        padding-top: 14px;
+        font-size: 14px;
+        color: $blue;
+    }
+}
+
+.mobile-nav-button {
+    &__button-wrapper {
+        display: flex;
+        height: 100%;
+
+        &--open {
+            .mobile-nav-button__button-menu {
+                display: none;
+            }
+
+            .mobile-nav-button__button-close {
+                display: block;
+            }
+        }
+    }
+
+    &__button-menu,
+    &__button-close {
+        color: $blue;
+        font-size: 16px;
+        font-weight: $font-weight-black;
+        margin-left: 8px;
+        line-height: 1;
+    }
+
+    &__button-close {
+        display: none;
+    }
+
+    &__hamburger-menu,
+    &__hamburger-menu:after,
+    &__hamburger-menu:before {
+        width: $bar-width;
+        height: $bar-height;
+        border-radius: 50px;
+    }
+
+    &__hamburger-menu {
+        position: relative;
+        transform: translateY($bar-height);
+        background: rgba($blue, 1);
+        transition: all 0ms 300ms;
+
+        &.animate {
+            background: rgba(255, 255, 255, 0);
+        }
+    }
+
+    &__hamburger-menu:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: $bar-spacing;
+        background: rgba($blue, 1);
+        transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    &__hamburger-menu:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: $bar-spacing;
+        background: rgba($blue, 1);
+        transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    &__hamburger-menu.animate:after {
+        top: 0;
+        transform: rotate(45deg);
+        transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
+    }
+
+    &__hamburger-menu.animate:before {
+        bottom: 0;
+        transform: rotate(-45deg);
+        transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
+    }
+}
+
+// haven't created custom classes for menus, so have to style in only partial-BEM
+.main-nav {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+
+    &__menu {
+        padding-left: 0;
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        margin-bottom: 0;
+        @include mq(medium) {
+            justify-content: flex-end;
+        }
+        // need to style some specifically if they are in the 2nd level navigation
+        > .menu-item {
+            &.current_page_item,
+            &.current_page_parent {
+                &::after {
+                    content: "";
+                    display: block;
+                    border-bottom: 4px solid $blue;
+                    position: absolute;
+                    bottom: 12px; // half of bottom padding of <a> element
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 100%;
+                }
+            }
+
+            &.menu-item-has-children {
+                &:hover {
+                    &::before {
+                        content: "";
+                        display: block;
+                        width: 0;
+                        height: 0;
+                        border-left: 10px solid transparent;
+                        border-right: 10px solid transparent;
+                        border-bottom: 10px solid $white;
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        z-index: 930;
+                    }
+                }
+            }
+
+            > .sub-menu {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 50%;
+                transform: translateX(-50%);
+                box-shadow: 0 10px 24px 8px rgba(0, 0, 0, 0.2);
+                overflow: hidden;
+                z-index: 920;
+
+                > .menu-item {
+                    &:first-of-type {
+                        a {
+                            padding-top: 20px;
+                        }
+                    }
+
+                    a {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        font-size: 18px;
+
+                        &:hover {
+                            &::after {
+                                border: 0;
+                            }
+                        }
+
+                        &::after {
+                            border: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .menu-item {
+            height: 100%;
+            position: relative;
+            z-index: 900;
+
+            &:hover {
+                a {
+                    &::after {
+                        border-bottom: 4px solid $blue;
+                    }
+                }
+
+                &::after {
+                    display: block;
+                }
+
+                > .sub-menu {
+                    display: block;
+                }
+            }
+
+            &:last-of-type {
+                &:after {
+                    width: 100%;
+                    margin-left: 6px;
+                }
+            }
+
+            a {
+                color: $font-color;
+                font-size: 16px;
+                letter-spacing: 1px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px 16px;
+                line-height: 1;
+
+                &:hover {
+                    text-decoration: none;
+
+                    &::after {
+                        border-bottom: 4px solid $blue;
+                    }
+                }
+
+                &::after {
+                    content: "";
+                    display: block;
+                    border-bottom: 4px solid transparent;
+                    position: absolute;
+                    bottom: 12px; // half of bottom padding of <a> element
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 100%;
+                    transition: all .3s ease-out;
+                }
+            }
+
+            // 2nd level navigation
+            .sub-menu {
+                list-style-type: none;
+                width: 350px;
+                background-color: $white;
+                padding: 0;
+                border-radius: 8px;
+
+                .menu-item {
+                    &.menu-item-has-children {
+                        background-color: $light-gray;
+
+                        > a {
+                            font-size: 15px;
+                            padding-top: 20px;
+                            padding-bottom: 8px;
+
+                            &:hover {
+                                cursor: default;
+                            }
+                        }
+                    }
+
+                    &.current-menu-item {
+                        a {
+                            color: $blue;
+
+                            .custom-menu-item__icon,
+                            .custom-menu-item__title {
+                                color: $blue;
+                            }
+                        }
+                    }
+
+                    a {
+                        padding: 10px 20px;
+                        justify-content: flex-start;
+
+                        &:hover {
+                            .custom-menu-item__icon,
+                            .custom-menu-item__title {
+                                color: $blue;
+                            }
+                        }
+                    }
+                }
+
+                // 3rd level navigation
+                .sub-menu {
+                    background-color: $light-gray;
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding-bottom: 10px;
+
+                    .menu-item {
+                        a {
+                            font-size: 14px;
+                            text-transform: capitalize;
+                            font-weight: normal;
+
+                            &:hover {
+                                color: $blue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// haven't created custom classes for menus, so have to style in only partial-BEM
+.mobile-nav {
+    &__phone {
+        color: $white !important;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    &__menu {
+        padding-left: 0;
+        list-style-type: none;
+        margin-bottom: 0;
+
+        .menu-item {
+            &.current_page_item {
+                > a::after {
+                    content: "";
+                    display: block;
+                    border-bottom: 2px solid $cyan;
+                    position: absolute;
+                    bottom: -4px;
+                    left: 0;
+                    width: 100px;
+                }
+            }
+
+            a {
+                color: $white;
+                display: block;
+                text-decoration: none;
+                font-weight: $font-weight-black;
+                letter-spacing: 1px;
+                font-size: 22px;
+                position: relative;
+                margin-bottom: 16px;
+            }
+
+            // 2nd level navigation
+            .sub-menu {
+                display: block;
+                padding-left: 20px;
+                padding-right: 20px;
+                list-style-type: none;
+
+                .menu-item {
+                    &.menu-item-has-children {
+                        cursor: initial;
+
+                        > a {
+                            display: none;
+                        }
+                    }
+
+                    a {
+                        font-weight: $font-weight-regular;
+                        font-size: 16px;
+                    }
+                }
+
+                // 3rd level navigation
+                .sub-menu {
+                    display: block;
+                    padding-left: 0;
+                    padding-right: 20px;
+                    list-style-type: none;
+
+                    .menu-item {
+                        a {
+                            font-weight: $font-weight-regular;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#mobile-nav__container {
+    display: none;
+    background-color: $off-black;
+    position: absolute;
+    width: calc(100vw + 1px);
+    top: 40px;
+    left: 0;
+    padding: 20px;
+    z-index: 990;
+    @include mq(small) {
+        width: 320px;
+    }
+    @include mq(large) {
+        //need the !important to override inline style from jquery slideDown() function
+        display: none !important;
+    }
+}
