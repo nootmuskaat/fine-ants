@@ -66,7 +66,7 @@ const vendorJSWatchFiles       = './assets/js/plugins/*.js'; // Path to all vend
 const customJSWatchFiles       = './assets/js/*.js'; // Path to all custom JS files.
 const projectHTMLWatchFiles     = './**/*.html'; // Path to all HTML files.
 const imagesWatchFiles         = './assets/img/**/*.{png,jpg,jpeg,gif,svg}';
-// const fontsWatchFiles          = fontsSRC;
+const fontsWatchFiles          = fontsSRC;
 
 // Browsers you care about for autoprefixing.
 // Browser list https://github.com/ai/browserslist
@@ -180,7 +180,7 @@ gulp.task('development-styles', function (done) {
         .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
         .pipe(gulp.dest(styleDestination)) // Write css file to assets
         // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
-        .pipe(gulp.dest('.')) // Write revisions manifest to assets
+        // .pipe(gulp.dest('.')) // Write revisions manifest to assets
         // .pipe(filter('**/*.css')) // Filtering stream to only css files
         // .pipe(browserSync.stream()) // Reloads main.css if that is enqueued.
     done(); // call the function at the top to let Gulp know the process has finished
@@ -227,7 +227,7 @@ gulp.task('production-styles', function (done) {
         // .pipe(rev()) // Create new revision number for cache busting
         .pipe(gulp.dest(styleDestination)) // Write css file to assets
         // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
-        .pipe(gulp.dest('.')) // Write revisions manifest to assets
+        // .pipe(gulp.dest('.')) // Write revisions manifest to assets
     done(); // call the function at the top to let Gulp know the process has finished
 });
 
@@ -257,7 +257,7 @@ gulp.task('devCustomJS', function (done) {
         // .pipe(rev()) // Create new revision number for cache busting
         .pipe(gulp.dest(jsCustomDestination))
         // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
-        .pipe(gulp.dest('.')); // Write revisions manifest to assets
+        // .pipe(gulp.dest('.')); // Write revisions manifest to assets
     done();
 });
 
@@ -288,7 +288,7 @@ gulp.task('customJS', function (done) {
         // .pipe(rev()) // Create new revision number for cache busting
         .pipe(gulp.dest(jsCustomDestination))
         // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
-        .pipe(gulp.dest('.')); // Write revisions manifest to assets
+        // .pipe(gulp.dest('.')); // Write revisions manifest to assets
     done();
 });
 
@@ -317,7 +317,7 @@ gulp.task('vendorJS', function (done) {
         // .pipe(rev()) // Create new revision number for cache busting
         .pipe(gulp.dest(jsVendorDestination))
         // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
-        .pipe(gulp.dest('.')); // Write revisions manifest to assets
+        // .pipe(gulp.dest('.')); // Write revisions manifest to assets
     done();
 });
 
