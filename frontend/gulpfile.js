@@ -10,7 +10,7 @@
  *      3. JS: Concatenates & uglifies Vendor and Custom JS files.
  *      4. Images: Minifies PNG, JPEG, GIF and SVG images.
  *      5. Watches files for changes in CSS or JS.
- *      6. Watches files for changes in PHP.
+ *      6. Watches files for changes in HTML.
  *      7. Corrects the line endings.
  *      8. InjectCSS instead of browser page reload.
  *
@@ -28,40 +28,45 @@
 
 // START Editing Project Variables.
 // Project related.
-// var project               = 'fine-ants'; // Project Name, all lowercase, no spaces
-var projectURL               = 'fine-ants.work'; // Project URL. Could be something like development.work
-// var productURL            = './'; // Theme/Plugin URL. Leave it like it is, since our gulpfile.js lives in the root folder.
-// var tunnel-name            = project.toLowerCase();
+// const project               = 'fine-ants'; // Project Name, all lowercase, no spaces
+const projectURL               = 'fine-ants.work'; // Project URL. Could be something like development.work
+// const productURL            = './'; // Theme/Plugin URL. Leave it like it is, since our gulpfile.js lives in the root folder.
+// const tunnel-name            = project.toLowerCase();
 
 // Style related.
-var styleSRC                 = './assets/sass/main.scss'; // Path to main .scss file.
-var styleDestination         = './static/frontend/css/'; // Path to place the compiled CSS file.
+const styleSRC                 = './assets/sass/main.scss'; // Path to main .scss file.
+const styleDestination         = './static/frontend/css/'; // Path to place the compiled CSS file.
 
 // JS Custom related.
-var jsCustomSRC              = './assets/js/*.js'; // Path to JS custom scripts folder.
-var jsCustomDestination      = './static/frontend/js/'; // Path to place the compiled JS custom scripts file.
-var jsCustomFile             = 'main'; // Compiled JS custom file name.
+const jsCustomSRC              = './assets/js/*.js'; // Path to JS custom scripts folder.
+const jsCustomDestination      = './static/frontend/js/'; // Path to place the compiled JS custom scripts file.
+const jsCustomFile             = 'app'; // Compiled JS custom file name.
 
 // JS Vendor related.
-var jsVendorSRC              = ['./assets/js/plugins/testing.js', './assets/js/plugins/boilerplate.js'];
-var jsVendorDestination      = './static/frontend/js/'; // Path to place the compiled JS vendors file.
-var jsVendorFile             = 'plugins'; // Compiled JS vendors file name.
+const jsVendorSRC              = [
+                                    './node_modules/jquery/dist/jquery.slim.js',
+                                    './node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+                                    './node_modules/axios/dist/axios.js',
+                                    './assets/js/plugins/chartist.js',
+                                ];
+const jsVendorDestination      = './static/frontend/js/'; // Path to place the compiled JS vendors file.
+const jsVendorFile             = 'vendor'; // Compiled JS vendors file name.
 
 // Images related.
-var imagesSRC                = './assets/img/**/*.{png,jpg,jpeg,gif,svg}'; // Source folder of images which should be optimized.
-var imagesDestination        = './static/frontend/img/'; // Destination folder of optimized images. Must be different from the imagesSRC folder.
+const imagesSRC                = './assets/img/**/*.{png,jpg,jpeg,gif,svg}'; // Source folder of images which should be optimized.
+const imagesDestination        = './static/frontend/img/'; // Destination folder of optimized images. Must be different from the imagesSRC folder.
 
 // Fonts relate.
-var fontsSRC                 = './assets/fonts/**/*.{eot,woff,woff2,otf,svg,ttf}'; // Source folder of images which should be optimized.
-var fontsDestination         = './static/frontend/fonts/'; // Destination folder of optimized images. Must be different from the imagesSRC folder.
+const fontsSRC                 = './assets/fonts/**/*.{eot,woff,woff2,otf,svg,ttf}'; // Source folder of images which should be optimized.
+const fontsDestination         = './static/frontend/fonts/'; // Destination folder of optimized images. Must be different from the imagesSRC folder.
 
 // Watch files paths.
-var styleWatchFiles          = './assets/sass/**/*.scss'; // Path to all *.scss files inside css folder and inside them.
-var vendorJSWatchFiles       = './assets/js/plugins/*.js'; // Path to all vendor JS files.
-var customJSWatchFiles       = './assets/js/*.js'; // Path to all custom JS files.
-var projectHTMLWatchFiles     = './**/*.html'; // Path to all PHP files.
-var imagesWatchFiles         = './assets/img/**/*.{png,jpg,jpeg,gif,svg}';
-// var fontsWatchFiles          = fontsSRC;
+const styleWatchFiles          = './assets/sass/**/*.scss'; // Path to all *.scss files inside css folder and inside them.
+const vendorJSWatchFiles       = './assets/js/plugins/*.js'; // Path to all vendor JS files.
+const customJSWatchFiles       = './assets/js/*.js'; // Path to all custom JS files.
+const projectHTMLWatchFiles     = './**/*.html'; // Path to all HTML files.
+const imagesWatchFiles         = './assets/img/**/*.{png,jpg,jpeg,gif,svg}';
+// const fontsWatchFiles          = fontsSRC;
 
 // Browsers you care about for autoprefixing.
 // Browser list https://github.com/ai/browserslist
@@ -78,34 +83,35 @@ const AUTOPREFIXER_BROWSERS = [
  *
  * Load gulp plugins and assign them semantic names.
  */
-var gulp                = require('gulp'); // Gulp of-course
+const gulp                = require('gulp'); // Gulp of-course
 
 // CSS related plugins.
-var sass                = require('gulp-sass'); // Gulp plugin for Sass compilation.
-var cleanCSS            = require('gulp-clean-css'); // Minifies CSS files.
-var purgecss            = require('@fullhuman/postcss-purgecss') // Remove unused CSS
-var autoprefixer        = require('gulp-autoprefixer'); // Autoprefixing magic.
-var mmq                 = require('gulp-merge-media-queries'); // Combine matching media queries into one media query definition.
-var postcss             = require('gulp-postcss'); // Used to manage CSS
+const sass                = require('gulp-sass'); // Gulp plugin for Sass compilation.
+const cleanCSS            = require('gulp-clean-css'); // Minifies CSS files.
+const purgecss            = require('@fullhuman/postcss-purgecss') // Remove unused CSS
+const autoprefixer        = require('gulp-autoprefixer'); // Autoprefixing magic.
+const mmq                 = require('gulp-merge-media-queries'); // Combine matching media queries into one media query definition.
+const postcss             = require('gulp-postcss'); // Used to manage CSS
 
 // JS related plugins.
-var concat              = require('gulp-concat'); // Concatenates JS files
-var uglify              = require('gulp-uglify'); // Minifies JS files
-var babel               = require('gulp-babel'); // Converts ES6 to ES5 and polyfills
+const concat              = require('gulp-concat'); // Concatenates JS files
+const uglify              = require('gulp-uglify'); // Minifies JS files
+const babel               = require('gulp-babel'); // Converts ES6 to ES5 and polyfills
 
 // Image related plugins.
-var imagemin            = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
-var del                 = require('del');
-var newer               = require('gulp-newer');
+const imagemin            = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
+const del                 = require('del');
+const newer               = require('gulp-newer');
 
 // Utility related plugins.
-var gutil               = require('gulp-util');
-var rename              = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css
-var lineec              = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
-var filter              = require('gulp-filter'); // Enables you to work on a subset of the original files by filtering them using globbing.
-var sourcemaps          = require('gulp-sourcemaps'); // Maps code in a compressed file (E.g. style.css) back to it’s original position in a source file (E.g. structure.scss, which was later combined with other css files to generate style.css)
-var browserSync         = require('browser-sync').create(); // Reloads browser and injects CSS. Time-saving synchronised browser testing.
-var reload              = browserSync.reload; // For manual browser reload.
+const gutil               = require('gulp-util');
+const rename              = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css
+const lineec              = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
+const filter              = require('gulp-filter'); // Enables you to work on a subset of the original files by filtering them using globbing.
+const rev                 = require('gulp-rev'); // Creates a hashed version of the file for cache busting.
+const sourcemaps          = require('gulp-sourcemaps'); // Maps code in a compressed file (E.g. style.css) back to it’s original position in a source file (E.g. structure.scss, which was later combined with other css files to generate style.css)
+const browserSync         = require('browser-sync').create(); // Reloads browser and injects CSS. Time-saving synchronised browser testing.
+const reload              = browserSync.reload; // For manual browser reload.
 
 
 
@@ -140,47 +146,120 @@ gulp.task('browser-sync', function (done) {
 
 
 /**
- * Task: `styles`.
+ * Task: `development-styles`.
  *
- * Compiles Sass to CSS, Autoprefixes it and Minifies CSS.
+ * Compiles and writes CSS file with sourcemap for development
  *
  * This task does the following:
- *    1. Gets the source scss file
+ *    0. Deletes old CSS and Map files
+ *    1. Gets the source css and scss files and concatenates them together
  *    2. Compiles Sass to CSS
- *    3. Writes Sourcemaps for it
- *    4. Autoprefixes it and generates main.css
- *    5. Renames the CSS file with suffix .min.css
- *    6. Minifies the CSS file and generates main.min.css
- *    7. Injects CSS or reloads the browser via browserSync
+ *    3. Generates TailwindCSS code based on config file
+ *    4. Adds a random hash to the file name for cache busting
+ *    5. Writes Sourcemaps for the file
+ *    6. Cleans up line endings
+ *    7. Writes file to assets folder
+ *    8. Writes file name to rev-manifest.json
+ *    9. Writes rev-manifest.json to assets folder (or merges it in existing file)
+ *    10. Filters and streams new css file to the browser
  */
-gulp.task('styles', function (done) {
+gulp.task('development-styles', function (done) {
+    // del(cssDeletionPath);
+    // del(cssMapDeletionPath);
     gulp.src(styleSRC)
         .pipe( sourcemaps.init() )
+        // .pipe(concat(cssCustomFile + '.scss'))
         .pipe(sass({
             errLogToConsole: true,
             outputStyle: 'expanded',
             precision: 10
         }))
         .on('error', console.error.bind(console))
+        // .pipe(rev()) // Create new revision number for cache busting
         .pipe( sourcemaps.write ( './' ) )
         .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-        .pipe(gulp.dest(styleDestination))
-        .pipe(filter('**/*.css')) // Filtering stream to only css files
-        .pipe(browserSync.stream()) // Reloads main.css if that is enqueued.
-        .pipe(mmq()) // Merge Media Queries only for .min.css version.
-        .pipe(rename({suffix: '.min'}))
-        .pipe(postcss([
-            purgecss({content: [projectHTMLWatchFiles]}),
-        ]))
-        .pipe(autoprefixer(AUTOPREFIXER_BROWSERS)) // Autoprefix only for minified version to avoid sourcemap conflicts
-        .pipe(cleanCSS())
-        .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-        .pipe(gulp.dest(styleDestination))
-        .pipe(filter('**/*.css')) // Filtering stream to only css files
-        .pipe(browserSync.stream()); // Reloads main.min.css if that is enqueued.
-        done(); // call the function at the top to let Gulp know the process has finished
+        .pipe(gulp.dest(styleDestination)) // Write css file to assets
+        // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
+        .pipe(gulp.dest('.')) // Write revisions manifest to assets
+        // .pipe(filter('**/*.css')) // Filtering stream to only css files
+        // .pipe(browserSync.stream()) // Reloads main.css if that is enqueued.
+    done(); // call the function at the top to let Gulp know the process has finished
 });
 
+/**
+ * Task: `production-styles`.
+ *
+ * Compiles and writes and minifies CSS file for production environment
+ *
+ * This task does the following:
+ *    0. Deletes old CSS and Map files
+ *    1. Gets the source CSS and SCSS files and concatenates them together
+ *    2. Compiles SCSS to CSS
+ *    3. Generates TailwindCSS code based on config file
+ *    4. Merges media queries together
+ *    5. Finds and removes unused CSS declarations
+ *    6. Autoprefixes CSS for all browsers
+ *    7. Cleans up line endings
+ *    8. Minifies the CSS
+ *    9. Adds a random hash to the file name for cache busting
+ *    10. Writes file to assets folder
+ *    11. Writes file name to rev-manifest.json
+ *    12. Writes rev-manifest.json to assets folder (or merges it in existing file)
+ */
+gulp.task('production-styles', function (done) {
+    // del(cssDeletionPath);
+    // del(cssMapDeletionPath);
+    gulp.src(styleSRC)
+        // .pipe(concat(cssCustomFile + '.scss'))
+        .pipe(sass({
+            errLogToConsole: true,
+            outputStyle: 'expanded',
+            precision: 10
+        }))
+        .on('error', console.error.bind(console))
+        .pipe(mmq()) // Merge Media Queries only for production version.
+        .pipe(postcss([
+            purgecss({content: [projectHTMLWatchFiles]}), // Remove all CSS classes not used in a blade
+        ]))
+        .pipe(autoprefixer(AUTOPREFIXER_BROWSERS)) // Autoprefix only for minified version to avoid sourcemap conflicts
+        .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+        .pipe(cleanCSS()) // Minify the CSS
+        // .pipe(rev()) // Create new revision number for cache busting
+        .pipe(gulp.dest(styleDestination)) // Write css file to assets
+        // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
+        .pipe(gulp.dest('.')) // Write revisions manifest to assets
+    done(); // call the function at the top to let Gulp know the process has finished
+});
+
+/**
+ * Task: `devCustomJS`.
+ *
+ * Concatenate custom JS scripts.
+ *
+ * This task does the following:
+ *     0. Deletes any existing custom JS files
+ *     1. Gets the source folder for JS custom files
+ *     2. Concatenates all the files and generates custom JS file
+ *     3. Processes javascript through babel to convert to normal javascript
+ *     4. Uglifies/Minifies the JS file and generates custom JS file
+ *     5. Cleans up line endings
+ *     6. Adds random hash to file name for cache busting
+ *     7. Writes file to assets folder
+ *     8. Writes file name to revision manifest
+ *     9. Writes rev-manifest.json to assets folder (or merges it in existing file)
+ */
+gulp.task('devCustomJS', function (done) {
+    // del(jsDeletionPath);
+    gulp.src(jsCustomSRC)
+        .pipe(concat(jsCustomFile + '.js'))
+        .pipe(babel({presets: ['@babel/preset-env']})) // Run babel conversion and polyfills for new JS
+        .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+        // .pipe(rev()) // Create new revision number for cache busting
+        .pipe(gulp.dest(jsCustomDestination))
+        // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
+        .pipe(gulp.dest('.')); // Write revisions manifest to assets
+    done();
+});
 
 /**
  * Task: `customJS`.
@@ -188,27 +267,30 @@ gulp.task('styles', function (done) {
  * Concatenate and uglify custom JS scripts.
  *
  * This task does the following:
+ *     0. Deletes any existing custom JS files
  *     1. Gets the source folder for JS custom files
- *     2. Concatenates all the files and generates custom.js
- *     3. Renames the JS file with suffix .min.js
- *     4. Uglifes/Minifies the JS file and generates custom.min.js
+ *     2. Concatenates all the files and generates custom JS file
+ *     3. Processes javascript through babel to convert to normal javascript
+ *     4. Uglifies/Minifies the JS file and generates custom JS file
+ *     5. Cleans up line endings
+ *     6. Adds random hash to file name for cache busting
+ *     7. Writes file to assets folder
+ *     8. Writes file name to revision manifest
+ *     9. Writes rev-manifest.json to assets folder (or merges it in existing file)
  */
 gulp.task('customJS', function (done) {
+    // del(jsDeletionPath);
     gulp.src(jsCustomSRC)
         .pipe(concat(jsCustomFile + '.js'))
+        .pipe(babel({presets: ['@babel/preset-env']})) // Run babel conversion and polyfills for new JS
+        .pipe(uglify().on('error', gutil.log)) // Minify javascript
         .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-        .pipe(babel({presets: ['@babel/preset-env']}))
+        // .pipe(rev()) // Create new revision number for cache busting
         .pipe(gulp.dest(jsCustomDestination))
-        .pipe(rename({
-            basename: jsCustomFile,
-            suffix: '.min'
-        }))
-        .pipe(uglify().on('error', gutil.log))
-        .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-        .pipe(gulp.dest(jsCustomDestination));
+        // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
+        .pipe(gulp.dest('.')); // Write revisions manifest to assets
     done();
 });
-
 
 /**
  * Task: `vendorJS`.
@@ -216,27 +298,28 @@ gulp.task('customJS', function (done) {
  * Concatenate and uglify vendor JS scripts.
  *
  * This task does the following:
+ *     0. Deletes any existing vendor JS files
  *     1. Gets the source folder for JS vendor files
- *     2. Concatenates all the files and generates vendors.js
- *     3. Renames the JS file with suffix .min.js
- *     4. Uglifes/Minifies the JS file and generates vendors.min.js
+ *     2. Concatenates all the files and generates custom JS file
+ *     3. Uglifies/Minifies the JS file and generates custom JS file
+ *     4. Cleans up line endings
+ *     5. Adds random hash to file name for cache busting
+ *     6. Writes file to assets folder
+ *     7. Writes file name to revision manifest
+ *     8. Writes rev-manifest.json to assets folder (or merges it in existing file)
  */
-gulp.task('vendorsJs', function (done) {
-    console.log(jsVendorSRC);
+gulp.task('vendorJS', function (done) {
+    // del(jsVendorDeletionPath);
     gulp.src(jsVendorSRC)
         .pipe(concat(jsVendorFile + '.js'))
+        .pipe(uglify().on('error', gutil.log)) // Minify javascript
         .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+        // .pipe(rev()) // Create new revision number for cache busting
         .pipe(gulp.dest(jsVendorDestination))
-        .pipe(rename({
-            basename: jsVendorFile,
-            suffix: '.min'
-        }))
-        .pipe(uglify().on('error', gutil.log))
-        .pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-        .pipe(gulp.dest(jsVendorDestination));
+        // .pipe(rev.manifest(manifestPath, {merge: true})) // Merge revisioned files into one manifest
+        .pipe(gulp.dest('.')); // Write revisions manifest to assets
     done();
 });
-
 
 /**
  * Tasks: 'clean-img ,`images`
@@ -288,44 +371,33 @@ gulp.task('fonts', function (done) {
     done();
 });
 
-
 /**
  * Default Task
  *
- * Processes and builds out distribution files for css and javascript.
+ * Processes and builds out development files for css, javascript, fonts and images.
  */
-gulp.task('default', gulp.parallel('styles', 'customJS', 'vendorsJs'));
+gulp.task('default', gulp.series(gulp.parallel('development-styles', 'devCustomJS', 'vendorJS'), 'clean-img', 'images'));
 
+/**
+ * Development Task
+ *
+ * Processes and builds out development files for css and javascript.
+ */
+gulp.task('development', gulp.parallel('development-styles', 'devCustomJS'));
 
 /**
  * Build Task
  *
  * Processes and builds out distribution files.
  */
-gulp.task('build', gulp.series(gulp.parallel('styles', 'customJS', 'vendorsJs', 'fonts'), 'clean-img', 'images'));
-
-
+gulp.task('production', gulp.series(gulp.parallel('production-styles', 'customJS', 'vendorJS'), 'clean-img', 'images'));
 
 /**
  * Image Task
  *
  * Processes and optimizes image files.
  */
-gulp.task('img', gulp.series('clean-img', 'images'));
-
-/**
- * CSS Task
- *
- * Processes sass and css files.
- */
-gulp.task('css', gulp.series('styles'));
-
-/**
- * Javascript Task
- *
- * Processes javascript files.
- */
-gulp.task('js', gulp.series('customJS', 'vendorsJs'));
+gulp.task('handle-images', gulp.series('clean-img', 'images'));
 
 /**
  * Watch Tasks.
@@ -333,16 +405,18 @@ gulp.task('js', gulp.series('customJS', 'vendorsJs'));
  * Watches for file changes and runs related tasks.
  * Spins up Browsersync to enable live updates to the browser.
  */
-gulp.task('watch:css', function() {
-    gulp.watch(styleWatchFiles).on('change', gulp.series('styles'));
+gulp.task('watch:css', function(done) {
+    gulp.watch(styleWatchFiles).on('change', gulp.series('development-styles'));
+    done();
 });
 
-gulp.task('watch:files', function() {
-    gulp.watch(projectHTMLWatchFiles).on('change', gulp.series(reload)); // Reload on PHP file changes.
-    gulp.watch(vendorJSWatchFiles).on('change', gulp.series('vendorsJs', reload)); // Reload on vendorsJs file changes.
-    gulp.watch(customJSWatchFiles).on('change', gulp.series('customJS', reload)); // Reload on customJS file changes.
+gulp.task('watch:files', function(done) {
+    gulp.watch(projectHTMLWatchFiles).on('change', gulp.series(reload)); // Reload on HTML file changes.
+    gulp.watch(customJSWatchFiles).on('change', gulp.series('devCustomJS', reload)); // Reload on customJS file changes.
+    gulp.watch(vendorJSWatchFiles).on('change', gulp.series('vendorJS', reload)); // Reload on vendorJs file changes.
     gulp.watch(imagesWatchFiles).on('change', gulp.series('clean-img', 'images', reload)); // Reload on image file changes.
-    // gulp.watch(fontsWatchFiles).on('change', gulp.series('fonts', reload)); // Reload on font file changes.
+    gulp.watch(fontsWatchFiles).on('change', gulp.series('fonts', reload)); // Reload on font file changes.
+    done();
 });
 
-gulp.task('watch', gulp.series('default', gulp.parallel('browser-sync', 'watch:css', 'watch:files')));
+gulp.task('watch', gulp.parallel('browser-sync', 'watch:css', 'watch:files'));

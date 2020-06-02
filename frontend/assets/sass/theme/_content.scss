@@ -1,71 +1,108 @@
 // ==========================================================================
 // Content
 // ==========================================================================
+
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  font-size: .875rem;
 }
 
-.site-content {
-    padding-top: $page-padding;
-    padding-bottom: $page-padding;
+.bi {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 
-main {
-    margin-top: $mobile-header-height;
-    @include mq(large) {
-        margin-top: $desktop-header-height;
-    }
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
-// account for wp admin bar
-body.admin-bar {
-    #wpadminbar {
-        //keep wp admin bar fixed at mobile as well as desktop
-        position: fixed !important;
-    }
-    & #site-header {
-        margin-top: $mobile-wpadmin-header-height;
-        @include mq(783px) {
-            margin-top: $desktop-wpadmin-header-height;
-        }
-    }
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
 }
 
-.wp-caption-text {
-    margin: .75rem 0 0;
-    color: $gray;
-    font-size: .75rem;
-    text-align: center;
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
-.social-icons {
-    &__link {
-        display: inline-block;
-
-        &:not(:last-of-type) {
-            margin-right: 8px;
-            @include mq($from: large, $until: x-large) {
-                margin-right: 6px;
-            }
-        }
-    }
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
 }
 
-.entry-content {
-    h1, h2, h3, h4, h5, h6 {
-        &:first-child {
-            margin-top: 0;
-            line-height: 1;
-        }
-    }
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
 }
 
-video {
-    max-width: 100%;
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
 
-    &:focus {
-        outline: none;
-    }
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.navbar .form-control {
+  padding: .75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
