@@ -5,5 +5,5 @@ from . import views
 
 app_name = "tagtable"
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.dashboard, name="dashboard"),
 ]
