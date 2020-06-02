@@ -1,3 +1,32 @@
 // ==========================================================================
 // Header
 // ==========================================================================
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(240, 61, 70, .95);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.navbar-nav .nav-link {
+  color: #888888;
+  display: flex;
+  align-items: center;
+  &:hover {
+    color: #505050;
+  }
+  .bi {
+    margin-right: 6px;
+    vertical-align: unset;
+  }
+}

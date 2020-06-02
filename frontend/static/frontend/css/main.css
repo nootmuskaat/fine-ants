@@ -10589,10 +10589,6 @@ dd {
   transform: translateY(-2px);
 }
 
-body {
-  font-size: .875rem;
-}
-
 .bi {
   width: 16px;
   height: 16px;
@@ -10600,9 +10596,41 @@ body {
   vertical-align: text-bottom;
 }
 
-/*
- * Sidebar
- */
+main {
+  background-color: #efefef;
+}
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(240, 61, 70, 0.95);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.navbar-nav .nav-link {
+  color: #888888;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #505050;
+}
+
+.navbar-nav .nav-link .bi {
+  margin-right: 6px;
+  vertical-align: unset;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -10613,6 +10641,8 @@ body {
   padding: 48px 0 0;
   /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background: #FB404B;
+  background: linear-gradient(to bottom, #FB404B 0%, #e03532 100%);
 }
 
 @media (max-width: 767.98px) {
@@ -10639,60 +10669,44 @@ body {
 }
 
 .sidebar .nav-link {
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 5px 15px;
+  opacity: .75;
+  border-radius: 4px;
+  padding: 10px 12px;
+  letter-spacing: 1px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }
 
-.sidebar .nav-link .feather {
-  margin-right: 4px;
-  color: #999;
+.sidebar .nav-link .bi {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  vertical-align: unset;
 }
 
 .sidebar .nav-link.active {
-  color: #007bff;
+  color: #FFFFFF;
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.23);
 }
 
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.13);
+  opacity: 1;
+}
+
+.sidebar .nav-link:hover .bi,
+.sidebar .nav-link.active .bi {
   color: inherit;
 }
 
 .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
-}
-
-/*
- * Navbar
- */
-.navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0.25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
-}
-
-.navbar .navbar-toggler {
-  top: .25rem;
-  right: 1rem;
-}
-
-.navbar .form-control {
-  padding: .75rem 1rem;
-  border-width: 0;
-  border-radius: 0;
-}
-
-.form-control-dark {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.form-control-dark:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 /*# sourceMappingURL=main.css.map */
