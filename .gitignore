@@ -136,3 +136,6 @@ dmypy.json
 
 # front-end
 frontend/node_modules
+
+# IDE files
+.on-save.json
