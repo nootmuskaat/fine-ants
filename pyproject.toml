@@ -6,16 +6,19 @@ authors = ["nootmuskaat <6219341+nootmuskaat@users.noreply.github.com>"]
 license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.1"
 Django = "^3.0"
 djangorestframework = "^3.11.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.4.2"
+isort = {extras = ["toml"], version = "^5.1.3"}
+black = "^19.10b0"
+python-language-server = {extras = ["all"], version = "^0.34.1"}
+
+[tool.black]
+line-length = 99
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-
-[tool.black]
-line-length = 95
