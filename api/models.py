@@ -16,7 +16,6 @@ class Account(models.Model):
     name = models.CharField(max_length=255)
     identifier = models.CharField(max_length=255)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owned")
-    group = models.OneToOneField(Group, on_delete=models.CASCADE, related_name="account")
 
 
 class Category(models.Model):
@@ -44,3 +43,10 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     balance = models.DecimalField(max_digits=10, decimal_places=2)
     hash = models.CharField(max_length=255)
+
+
+class SharedAccounts(models.Model):
+    """Which accounts have been shared with which users"""
+
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
