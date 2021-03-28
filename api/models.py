@@ -21,7 +21,7 @@ class Account(models.Model):
 class Category(models.Model):
     """A transaction category"""
 
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
 
 class SubCategory(models.Model):
@@ -29,6 +29,11 @@ class SubCategory(models.Model):
 
     parent = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="children")
     name = models.CharField(max_length=255)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["parent", "name"], name="unique_category"),
+        ]
 
 
 class Transaction(models.Model):
