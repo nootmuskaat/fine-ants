@@ -10,14 +10,13 @@ class CategoriesTestCase(TestCase):
 
     def test_create_and_fetch_categories(self):
         endpoint = "/api/categories"
-        categories = {
-            "Groceries": {"General", "Alcohol"},
-            "Going out": {"Restaurants", "Drinks"},
-        }
-        for parent, children in categories.items():
-            for child in children:
-                data = {"parent": parent, "name": child}
+        categories = [
+            {"name": "Going out", "children": ["Drinks", "Restaurants"]},
+            {"name": "Groceries", "children": ["Alcohol", "General"]}
+        ]
+        for category in categories:
+            for child in category["children"]:
+                data = {"parent": category["name"], "name": child}
                 self.client.post(endpoint, data=data, content_type=JSON)
         response = self.client.get(endpoint)
-        comparable_response = {k: set(v) for k, v in response.json().items()}
-        self.assertEqual(comparable_response, categories)
+        self.assertEqual(response.json(), categories)
