@@ -9,13 +9,21 @@ class Currency(models.Model):
     precision = models.PositiveSmallIntegerField(default=2)
 
 
+class FinancialInstitution(models.Model):
+    """A bank or credit union or other entity associated with an account"""
+
+    name = models.CharField(max_length=255)
+    import_map = models.CharField(max_length=255)
+
+
 class Account(models.Model):
     """Generally a bank account"""
 
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name="accounts")
     name = models.CharField(max_length=255)
     identifier = models.CharField(max_length=255)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owned")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts")
+    financial_institution = models.ForeignKey(FinancialInstitution, on_delete=models.CASCADE, related_name="accounts")
 
 
 class Category(models.Model):
