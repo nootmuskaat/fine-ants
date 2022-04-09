@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fine-ants"
+version = "0.0.0"
+description = "A person finance API"
+authors = ["nootmuskaat <6219341+nootmuskaat@users.noreply.github.com>"]
+license = "GNU"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+fastapi = "^0.75.1"
+sqlmodel = "^0.0.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
