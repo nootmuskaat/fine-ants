@@ -8,6 +8,7 @@ import Login from "./views/Login.vue";
 import Modal from "./views/Modal.vue";
 import Card from "./views/Card.vue";
 import Blank from "./views/Blank.vue";
+import Accounts from "./views/Accounts.vue";
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/accounts",
+    name: "Accounts",
+    component: Accounts,
   },
   {
     path: "/forms",
