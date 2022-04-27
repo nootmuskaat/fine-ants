@@ -40,9 +40,9 @@ import axios from "axios";
 async function postTransactionFile() {
   let file = document.getElementById("transaction-file").files[0];
   let formData = new FormData();
-  formData.append("file", file);
+  formData.append("upload", file);
   try {
-    const response = await axios.post('upload_file', formData, {
+    const response = await axios.post('http://localhost:8080/upload-file', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
